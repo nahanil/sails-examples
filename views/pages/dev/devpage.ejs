@@ -1,14 +1,39 @@
 <div class="container">
     <br/>
     <h3>Development in progress</h3>
-    <br/><br/><br/>
-
+    <br/>
     <div>
         <h5>Status</h5>
         <div>
-            <span class="alert-primary">Implementation to be started.</span><br/><br/>
+            <span class="alert-primary">Implementation started.</span><br/><br/>
+            <span><a href="https://stackoverflow.com/questions/51732640/sailsjs-ajax-form-validation">source</a></span><br/><br/>
+            <span><a href="https://www.npmjs.com/package/sails-html-form-generator">html form generator</a></span><br/><br/>
         </div>
     </div>
+
+    <div>
+        <h5>Useful steps</h5>
+        <div>
+            <b>Generate controller:</b> sails generate action createOneMoreThing<br/>
+            <b>Update Cloud API:</b> sails run scripts/rebuild-cloud-sdk<br/><br/>
+        </div>
+    </div>
+
+    <br/>
+
+    <ajax-form action="createOneThing" :syncing.sync="syncing" :cloud-error.sync="cloudError"
+               :form-errors.sync="createThingFormErrors" :form-data="createThingFormData"
+               :form-rules="createThingFormRules" @submitted="submittedCreateThingForm($event)">
+
+        <label for="thing-name">Thing Name:</label>
+        <input class="form-control" :class="[createThingFormErrors.thingName ? 'is-invalid' : '']"
+               type="text" id="thing-name" v-model="createThingFormData.thingName">
+
+        <div class="invalid-feedback" v-if="createThingFormErrors.thingName">Make up a name for your thing.</div>
+
+        <ajax-button class="btn btn-primary" type="submit" :syncing="syncing">Delete</ajax-button>
+
+    </ajax-form>
 
     <br/><br/><br/><br/>
 

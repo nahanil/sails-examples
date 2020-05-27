@@ -2,7 +2,7 @@ module.exports = {
 
   friendlyName: 'View devpage',
 
-  description: 'Display the devpages.',
+  description: 'Display the devpage.',
 
   exits: {
 
@@ -19,6 +19,5 @@ module.exports = {
     return {};
 
   }
-
 
 };
