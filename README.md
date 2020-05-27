@@ -1,24 +1,25 @@
-# sails-examples
+# SailsJS Examples
 
 A [Sails v1](https://sailsjs.com) example project to show how different things are done with and around the SailsJS framework.
 
-Backlog of example s:
-- Dropdown button that updates with frontend JavaScript
-- Ajax form that auto-submits
-- Pagination for table-based result sets - https://pagination.js.org/docs/index.html
+Start application with `sails lift`, browse to [`http://localhost:1337`](http://localhost:1337) and view current tasks, the backlog and what is already available.
 
-Working examples:
-- _to be added_
-
-### Valuable resources:
-- https://javascript.info/
-
-
-### Valuable videos:
-- https://www.youtube.com/watch?v=C43gU8G_V8Q&t=68s ...?
+Best, Mark
 
 ----
 
+#### Valuable resources:
+- https://javascript.info/
+#### Valuable videos:
+- https://www.youtube.com/watch?v=C43gU8G_V8Q&t=68s ...?
+
+
+
+
+
+#### Original content below this line
+
+----
 
 ### Links
 
