@@ -13,6 +13,8 @@ Best, Mark
 #### Valuable videos:
 - https://www.youtube.com/watch?v=C43gU8G_V8Q&t=68s ...?
 
+#### To be evaluated:
+- https://coderwall.com/p/njcr7w/sails-js-sick-of-restarting-your-server
 
 
 
