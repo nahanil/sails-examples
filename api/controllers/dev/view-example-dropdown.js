@@ -8,7 +8,7 @@ module.exports = {
 
     success: {
       description: 'Showing the default devpages.',
-      viewTemplatePath: 'pages/dev/dropdown_as_select'
+      viewTemplatePath: 'pages/example/dropdown_as_select'
     },
 
   },
