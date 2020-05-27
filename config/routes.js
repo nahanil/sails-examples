@@ -14,9 +14,10 @@ module.exports.routes = {
   //  ║║║║╣ ╠╩╗╠═╝╠═╣║ ╦║╣ ╚═╗
   //  ╚╩╝╚═╝╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
 
-  'GET /dev':                   { action: 'dev/view-devpage' },
-  'GET /example-dropdown':      { action: 'dev/view-example-dropdown' },
+  // Note that you can also directly route to a view...!
 
+  'GET /dev':                { action: 'dev/view-devpage' },
+  'GET /example-dropdown':   { view: 'pages/example/dropdown_as_select' },
 
   'GET /':                   { action: 'view-homepage-or-redirect' },
   'GET /welcome/:unused?':   { action: 'dashboard/view-welcome' },
