@@ -23,6 +23,7 @@ module.exports.policies = {
   'deliver-contact-form-message': true,
 
   'dev/view-devpage': true,
+  'dev/*': true,
 
   // 'example/dropdown_as_select': true,
 

@@ -17,6 +17,8 @@ module.exports.routes = {
   // Note that you can also directly route to a view...!
 
   'GET /dev':                { action: 'dev/view-devpage' },
+  'GET /ajax-form':          { view: 'pages/dev/ajax-form-example' },
+
   'GET /example-dropdown':   { view: 'pages/example/dropdown_as_select' },
 
   'GET /':                   { action: 'view-homepage-or-redirect' },
