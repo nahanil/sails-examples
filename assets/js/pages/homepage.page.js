@@ -1,4 +1,4 @@
-parasails.registerPage('homepage', {
+parasails.registerPage('original_homepage', {
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
@@ -14,6 +14,7 @@ parasails.registerPage('homepage', {
     _.extend(this, SAILS_LOCALS);
   },
   mounted: async function(){
+    console.log('TRACE at homepage.page.js:mounted()')
     this._setHeroHeight();
   },
 

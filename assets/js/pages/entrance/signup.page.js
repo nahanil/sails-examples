@@ -24,10 +24,16 @@ parasails.registerPage('signup', {
   //  ║  ║╠╣ ║╣ ║  ╚╦╝║  ║  ║╣
   //  ╩═╝╩╚  ╚═╝╚═╝ ╩ ╚═╝╩═╝╚═╝
   beforeMount: function() {
+
+    console.log('TRACE: Entering signup.page.js:beforeMount()')
+
     // Attach any initial data from the server.
     _.extend(this, SAILS_LOCALS);
   },
   mounted: async function() {
+
+    console.log('TRACE: Entering signup.page.js:mounted()')
+
     //…
   },
 
@@ -37,6 +43,9 @@ parasails.registerPage('signup', {
   methods: {
 
     submittedForm: async function() {
+
+      console.log('TRACE: Entering signup.page.js:submittedForm()')
+
       if(this.isEmailVerificationRequired) {
         // If email confirmation is enabled, show the success message.
         this.cloudSuccess = true;
@@ -51,6 +60,9 @@ parasails.registerPage('signup', {
     },
 
     handleParsingForm: function() {
+
+      console.log('TRACE: Entering signup.page.js:handleParsingForm()')
+
       // Clear out any pre-existing error messages.
       this.formErrors = {};
 

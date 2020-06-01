@@ -1,0 +1,49 @@
+<!-- https://scotch.io/courses/getting-started-with-vuejs/processing-a-form-with-vue -->
+<!-- https://bulma.io/documentation/overview/start/ -->
+<!-- This did not really work -->
+
+<!-- We're thing this now:
+
+    https://stackoverflow.com/questions/49929459/how-to-create-dynamic-form-in-sails-js-with-vue-js
+
+-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+
+<div class="container">
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script> -->
+
+    <div class="hero is-fullheight is-info is-bold">
+        <div class="hero-body">
+            <div class="container">
+
+                <ajax-form action="addStuff" :syncing.sync="syncing" :cloud-error.sync="cloudError" @submitted="submittedForm()" :handle-parsing="handleParsingForm">
+
+                    <div class="form-row" v-for="(filter, index) in formData.mypinputs">
+                        <label for="input1">Please enter some nice text:</label>
+                        <input class="form-control form-control-sm" id="input1" name="input1" type="text" :class="[formErrors.password ? 'is-invalid' : '']"
+                               v-model.trim="formData.myinputs[index].key" placeholder="Input #1" autofocus>
+                        <ajax-button type="submit" :syncing="syncing" class="btn btn-dark">Save changes</ajax-button>
+                        <button type="button" class="btn btn-secondary btn-sm" @click="addFilterForm">add field</button>
+                    </div>
+
+                </ajax-form>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+    <br/>
+    <h3>Development in progress</h3>
+    <br/>
+    <div>
+        <h5>Status</h5>
+        <div>
+            <span class="alert-primary">Implementation started.</span><br/><br/>
+            <span><a href="https://stackoverflow.com/questions/51732640/sailsjs-ajax-form-validation">source</a></span><br/><br/>
+            <span><a href="https://www.npmjs.com/package/sails-html-form-generator">html form generator</a></span><br/><br/>
+        </div>
+    </div>
+
+</div>
+
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

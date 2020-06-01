@@ -15,8 +15,10 @@ module.exports = {
 
   fn: async function () {
 
+
     // success
-    return {};
+    return {
+    };
 
   }
 

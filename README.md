@@ -11,18 +11,20 @@ Best, Mark
 #### Valuable resources:
 - https://javascript.info/
 
-#### Valuable videos:
-- [Introduction video](https://www.youtube.com/watch?v=C43gU8G_V8Q) 
+- SailsJS example App: https://ration.io/
 
+#### Valuable videos:
+- [Introduction video](https://www.youtube.com/watch?v=C43gU8G_V8Q)
 - [Main tutorial series about Sails part 1](https://www.youtube.com/watch?v=I2BdWa83_-U)
 
 - [Parasails, a framework for abstracting away JS functions in the frontend](https://www.youtube.com/watch?v=NCLx3XbijWA)
 - Practical explanation: https://stackoverflow.com/questions/49929459/how-to-create-dynamic-form-in-sails-js-with-vue-js
 
+- Perhaps we need this example...?
+- https://www.youtube.com/watch?v=42xugSCbyIk
+
 #### To be evaluated:
 - https://coderwall.com/p/njcr7w/sails-js-sick-of-restarting-your-server
-
-
 
 
 #### Original content below this line

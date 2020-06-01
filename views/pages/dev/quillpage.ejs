@@ -1,0 +1,122 @@
+<div class="container">
+    <br/>
+    <h3>Quill autosave example</h3>
+    <br/>
+    <div>
+        <h5>Status</h5>
+        <div>
+            <span class="alert-primary">Implementation started.</span><br/><br/>
+            <a href="https://stackoverflow.com/questions/42541353/how-do-i-retrieve-the-contents-of-a-quill-text-editor/42541886#42541886">https://stackoverflow.com/questions/42541353/how-do-i-retrieve-the-contents-of-a-quill-text-editor/42541886#42541886</a>
+            <a href="https://codepen.io/quill/pen/RRYBEP">https://codepen.io/quill/pen/RRYBEP</a>
+        </div>
+    </div>
+
+    <br/><br/>
+
+
+    <div style="min-height:300px">
+        <h4>Quill editor</h4>
+
+        <!-- Quill editor here -->
+        <!-- Include the Quill css and library -->
+        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+        <div id="quillArea" class="ql-editor" style="min-height:300px">
+        </div>
+        <textarea style="display:none" id="hiddenArea" name="content"></textarea>
+
+        <!-- Initialize Quill editor -->
+<!--        <script>-->
+<!--            var quill = new Quill('#quillArea', {-->
+<!--                theme: 'snow',-->
+<!--            });-->
+
+<!--            $("#edit-form").on("submit",function()-->
+<!--            {-->
+<!--                // $("#hiddenArea").val($("#quillArea").html());-->
+<!--                // $("#hiddenArea").val(quill.getText());-->
+<!--                // $("#hiddenArea").val(quill.root.innerHTML.trim());-->
+<!--                $("#hiddenArea").val(JSON.stringify(quill.getContents()));-->
+<!--            });-->
+<!--        </script>-->
+        <script>
+            var Delta = Quill.import('delta');
+            var quill = new Quill('#quillArea', {
+                modules: {
+                    toolbar: true
+                },
+                placeholder: 'Compose an epic...',
+                theme: 'snow'
+            });
+
+            <!--quill.setContents(JSON.parse(< %=content% >));-->
+
+            // Store accumulated changes
+            var change = new Delta();
+
+            quill.on('text-change', function(delta) {
+                change = change.compose(delta);
+            });
+
+            // Save periodically
+            setInterval(function()
+            {
+                if (change.length() > 0)
+                {
+                    console.log('Saving changes', change);
+
+                    // Send partial changes
+                    /*
+                    $.post('/api/v1/quill/update', {
+                      partial: JSON.stringify(change)
+                    });
+                    */
+
+                    // Send entire document
+                    $.post('/api/v1/quill/update', {
+                        content: JSON.stringify(quill.getContents()),
+                        pageId: '1'
+                    });
+
+                    change = new Delta();
+                }
+            }, 5*1000);
+
+            // Check for unsaved data
+            window.onbeforeunload = function() {
+                if (change.length() > 0) {
+                    return 'There are unsaved changes. Are you sure you want to leave?';
+                }
+            }
+        </script>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-1">Status:</div>
+        <div class="col-3">Saved (to be implemented)</div>
+    </div>
+
+    <br/><br/><br/>
+
+    <hr/>
+    <div>
+        <h5>Colors</h5>
+        <div>
+            <span class="alert-primary"><i>alert-primary</i></span><br/>
+            <span class="alert-secondary"><i>alert-secondary</i></span><br/>
+            <span class="alert-success"><i>alert-success</i></span><br/>
+            <span class="alert-warning"><i>alert-warning</i></span><br/>
+            <span class="alert-danger"><i>alert-danger</i></span><br/>
+            <span class="alert-light"><i>alert-light</i></span><br/>
+            <span class="alert-dark"><i>alert-dark</i></span><br/>
+
+        </div>
+    </div>
+
+    <br/><br/>
+
+    <hr/>
+</div>
+
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

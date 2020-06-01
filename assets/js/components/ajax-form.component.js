@@ -42,6 +42,7 @@ parasails.registerComponent('ajaxForm', {
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: function (){
+    console.log('TRACE: Entering ajax-form.component.js:data()')
     return {
       //…
     };
@@ -60,9 +61,12 @@ parasails.registerComponent('ajaxForm', {
   //  ║  ║╠╣ ║╣ ║  ╚╦╝║  ║  ║╣
   //  ╩═╝╩╚  ╚═╝╚═╝ ╩ ╚═╝╩═╝╚═╝
   beforeMount: function() {
+    console.log('TRACE: Enter ajax-form.component.js:beforeMount()')
     //…
   },
   mounted: async function (){
+    console.log('TRACE: Enter ajax-form.component.js:mounted()')
+
     if (this.action === undefined && this.handleSubmitting === undefined) {
       throw new Error('Neither `:action` nor `:handle-submitting` was passed in to <ajax-form>, but one or the other must be provided.');
     } else if (this.action !== undefined && this.handleSubmitting !== undefined) {
@@ -132,6 +136,7 @@ parasails.registerComponent('ajaxForm', {
     }
   },
   beforeDestroy: function() {
+    console.log('TRACE: Entering ajax-form.component.js:beforeDestroy()')
     //…
   },
 
@@ -152,6 +157,8 @@ parasails.registerComponent('ajaxForm', {
     //  ╠═╝╠╦╝║╚╗╔╝╠═╣ ║ ║╣   ║║║║╣  ║ ╠═╣║ ║ ║║╚═╗
     //  ╩  ╩╚═╩ ╚╝ ╩ ╩ ╩ ╚═╝  ╩ ╩╚═╝ ╩ ╩ ╩╚═╝═╩╝╚═╝
     _submit: async function () {
+
+      console.log('TRACE: Entering ajax-form.component.js:_submit()')
 
       // Prevent double-posting.
       if (this.syncing) {
@@ -318,7 +325,6 @@ parasails.registerComponent('ajaxForm', {
 
       // Set syncing state to `true` on userland "syncing" prop.
       this.$emit('update:syncing', true);
-
 
       // Submit the form
       var failedWithCloudExit;

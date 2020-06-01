@@ -25,6 +25,9 @@ module.exports.policies = {
   'dev/view-devpage': true,
   'dev/*': true,
 
+  'api/v1/quill/update': true,
+  'dev/update-content': true,
+
   // 'example/dropdown_as_select': true,
 
 };
