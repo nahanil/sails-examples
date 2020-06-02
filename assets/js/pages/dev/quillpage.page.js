@@ -3,7 +3,7 @@ parasails.registerPage('quillpage', {
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
-    contents: 'This is also content'
+    // content: 'This is also content'
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -19,6 +19,7 @@ parasails.registerPage('quillpage', {
   mounted: async function(){
     console.log('At quillpage.page.js:mounted()');
 
+    this._initiate();
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
@@ -26,6 +27,22 @@ parasails.registerPage('quillpage', {
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
 
+    _initiate: function () {
+
+        // <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        // <script src="/dependencies/jquery.min.js"></script>
+
+      console.log('At quillpage.page.js:initiate()');
+
+      // var quill = require("quill").Quill;
+
+      // $('#quillArea').val('');
+
+      <!--quill.setContents(JSON.parse(< %=content% >));-->
+
+      // Store accumulated changes
+
+}
 
   }
 });
