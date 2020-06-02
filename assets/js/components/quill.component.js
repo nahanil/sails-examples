@@ -1,5 +1,5 @@
 /**
- * <ajax-button>
+ * <quill-editor>
  * -----------------------------------------------------------------------------
  * A button with a built-in loading spinner.
  *
@@ -9,7 +9,7 @@
  * -----------------------------------------------------------------------------
  */
 
-parasails.registerComponent('quill', {
+parasails.registerComponent('quill-editor', {
   //  ╔═╗╦═╗╔═╗╔═╗╔═╗
   //  ╠═╝╠╦╝║ ║╠═╝╚═╗
   //  ╩  ╩╚═╚═╝╩  ╚═╝
@@ -84,7 +84,9 @@ parasails.registerComponent('quill', {
         change = change.compose(delta);
       });
 
-      quill.setContents(JSON.parse(content));
+      console.log("this.content: "+this.content);
+      quill.setContents(JSON.parse(this.content));
+      // quill.setContents(this.content);
 
       // Save periodically
       setInterval(function()

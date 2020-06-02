@@ -26,7 +26,7 @@ module.exports = {
 
   fn: async function (inputs) {
 
-    console.log("updating content with: "+inputs.content)
+    console.log('updating content with: '+inputs.content);
 
     // Update the content
     await Quill.update( {pageId: '1'} )

@@ -61,11 +61,11 @@ parasails.registerComponent('ajaxForm', {
   //  ║  ║╠╣ ║╣ ║  ╚╦╝║  ║  ║╣
   //  ╩═╝╩╚  ╚═╝╚═╝ ╩ ╚═╝╩═╝╚═╝
   beforeMount: function() {
-    console.log('TRACE: Enter ajax-form.component.js:beforeMount()')
+    console.log('TRACE: Enter ajax-form.component.js:beforeMount()');
     //…
   },
   mounted: async function (){
-    console.log('TRACE: Enter ajax-form.component.js:mounted()')
+    console.log('TRACE: Enter ajax-form.component.js:mounted()');
 
     if (this.action === undefined && this.handleSubmitting === undefined) {
       throw new Error('Neither `:action` nor `:handle-submitting` was passed in to <ajax-form>, but one or the other must be provided.');
@@ -158,7 +158,7 @@ parasails.registerComponent('ajaxForm', {
     //  ╩  ╩╚═╩ ╚╝ ╩ ╩ ╩ ╚═╝  ╩ ╩╚═╝ ╩ ╩ ╩╚═╝═╩╝╚═╝
     _submit: async function () {
 
-      console.log('TRACE: Entering ajax-form.component.js:_submit()')
+      console.log('TRACE: Entering ajax-form.component.js:_submit()');
 
       // Prevent double-posting.
       if (this.syncing) {
