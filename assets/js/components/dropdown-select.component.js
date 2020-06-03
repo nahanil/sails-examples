@@ -48,7 +48,7 @@ parasails.registerComponent('dropdown-select', {
                         aria-haspopup="true"
                         :aria-expanded="isOpen"
                         @click.prevent="isOpen = !isOpen">
-                    {{ label }}
+                    {{ value || label }}
                 </button>
                 <div class="dropdown-menu"
                      :class="{ show: isOpen }">
