@@ -4,16 +4,16 @@
     <br/>
 
     <div>This dropdown works as expected:</div>
-    <dropdown-select value="Orange" options=<%=fruitTypes%> > </dropdown-select>
+    <dropdown-select label="Select a fruit" v-model="selectedFruit" :options="fruitTypes"></dropdown-select>
+
+    You selected: {{ selectedFruit }}
 
     <br/>
     <br/>
 
     <div>This dropdown defaults to showing counties, rather than showing the fruit types:</div>
-    <dropdown-select value="BMW" options=<%=carBrands%> > </dropdown-select>
-
-
-
+    <dropdown-select v-model="selectedCar" :options="carBrands"></dropdown-select>
+    You selected: {{ selectedCar }}
 
     <br/><br/><br/><br/><br/><br/>
     <hr/>
