@@ -19,11 +19,11 @@ module.exports.routes = {
   'GET /dev':                { action: 'dev/view-devpage' },
   'GET /quill':              { action: 'dev/view-quillpage' },
 
-  'POST  /api/v1/quill/update':  { action: 'dev/update-content' },
+  'POST /api/v1/quill/update': { action: 'dev/update-content' },
 
   'GET /ajax':               { view: 'pages/ajax-form-example' },
 
-  'GET /example-dropdown':   { view: 'pages/example/dropdown_as_select' },
+  'GET /example-dropdown':   { action: 'example/view-dropdown-as-select' },
 
   'GET /':                   { action: 'view-homepage-or-redirect' },
   'GET /welcome/:unused?':   { action: 'dashboard/view-welcome' },

@@ -1,0 +1,31 @@
+<div id="dropdown-as-select" class="container">
+    <br/>
+    <h3>Using a Bootstrap Dropdown Button as select </h3>
+    <br/>
+
+    <div>This dropdown works as expected:</div>
+    <dropdown-select value="Orange" options=<%=fruitTypes%> > </dropdown-select>
+
+    <br/>
+    <br/>
+
+    <div>This dropdown defaults to showing counties, rather than showing the fruit types:</div>
+    <dropdown-select value="BMW" options=<%=carBrands%> > </dropdown-select>
+
+
+
+
+    <br/><br/><br/><br/><br/><br/>
+    <hr/>
+
+    <br/><br/><br/><br/><br/><br/>
+    <ul>
+        <li><a target="_blank" href="https://stackoverflow.com/questions/50938283/how-display-selected-item-from-bootstrap-4-drop-down-item-menu/50997271">Example that worked</a> </li>
+        <li><a target="_blank" href="https://www.codeply.com/go/NWwzFSAUVu/bootstrap-4-dropdown-as-select-button-group">Example that did nót work</a></li>
+    </ul>
+
+
+</div>
+
+
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

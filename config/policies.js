@@ -27,6 +27,8 @@ module.exports.policies = {
 
   'api/v1/quill/update': true,
   'dev/update-content': true,
+  'example/view-dropdown-as-select': true,
+  // 'example-dropdown': true,
 
   // 'example/dropdown_as_select': true,
 
