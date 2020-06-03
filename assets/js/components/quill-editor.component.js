@@ -36,6 +36,12 @@ parasails.registerComponent('quill-editor', {
         <div>
             <div id="quillArea" class="ql-editor" style="min-height:300px"/>
             <textarea style="display:none" id="hiddenArea" name="content"></textarea>
+            <br/>
+
+            <div class="row">
+                <div class="col-1">Status:</div>
+                <div id="statusArea" class="col-1 text-center alert-success">Saved</div>
+            </div>
         </div>
   `,
 
@@ -75,18 +81,26 @@ parasails.registerComponent('quill-editor', {
         modules: {
           toolbar: true
         },
-        placeholder: 'Compose an epic...',
+        placeholder: 'Licht uw klacht toe of herschrijf het artikel.',
         theme: 'snow'
       });
 
+      var ignoreChange = true; //only the first time
       var change = new Delta();
       quill.on('text-change', function(delta) {
         change = change.compose(delta);
+        if (ignoreChange)
+        {
+          ignoreChange = false
+        }
+        else {
+          $('#statusArea').text("Modified");
+          $('#statusArea').removeClass("alert-success");
+          $('#statusArea').addClass("alert-warning");
+        }
       });
 
-      console.log("this.content: "+this.content);
       quill.setContents(JSON.parse(this.content));
-      // quill.setContents(this.content);
 
       // Save periodically
       setInterval(function()
@@ -105,8 +119,12 @@ parasails.registerComponent('quill-editor', {
           // Send entire document
           $.post('/api/v1/quill/update', {
             content: JSON.stringify(quill.getContents()),
-            pageId: '1'
+            pageId: '1',
+            _csrf: window.SAILS_LOCALS._csrf
           });
+          $('#statusArea').text("Saved");
+          $('#statusArea').removeClass("alert-warning");
+          $('#statusArea').addClass("alert-success");
 
           change = new Delta();
         }
@@ -115,18 +133,9 @@ parasails.registerComponent('quill-editor', {
       // Check for unsaved data
       window.onbeforeunload = function() {
         if (change.length() > 0) {
-          return 'There are unsaved changes. Are you sure you want to leave?';
+          return 'Er zijn wijzigingen die nog niet opgeslagen zijn. Weet u zeker dat u deze pagina wilt sluiten?';
         }
       }
-    },
-
-    setData: function () {
-
-      console.log('quill.component.js:setData()');
-
-      quill.setContents(JSON.parse(content));
-      // quill.setContents('test');
     }
-
   }
 });
