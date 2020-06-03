@@ -6,14 +6,14 @@
     <div>This dropdown works as expected:</div>
     <dropdown-select label="Select a fruit" v-model="selectedFruit" :options="fruitTypes"></dropdown-select>
 
-    You selected: {{ selectedFruit }}
+    <span v-cloak>You selected: {{ selectedFruit }}</span>
 
     <br/>
     <br/>
 
     <div>This dropdown defaults to showing counties, rather than showing the fruit types:</div>
     <dropdown-select v-model="selectedCar" :options="carBrands"></dropdown-select>
-    You selected: {{ selectedCar }}
+    <span v-cloak>You selected: {{ selectedCar }}</span>
 
     <br/><br/><br/><br/><br/><br/>
     <hr/>
