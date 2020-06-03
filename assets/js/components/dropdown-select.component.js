@@ -14,7 +14,10 @@ parasails.registerComponent('dropdown-select', {
   //  ╩  ╩╚═╚═╝╩  ╚═╝
   props: {
     options: {
-      type: Array
+      type: Array,
+      default: () => [
+        'China', 'Denmark', 'USA', 'Netherlands', 'Germany'
+      ]
     },
 
     value: {

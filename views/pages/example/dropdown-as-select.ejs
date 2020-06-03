@@ -11,9 +11,15 @@
     <br/>
     <br/>
 
-    <div>This dropdown defaults to showing counties, rather than showing the fruit types:</div>
-    <dropdown-select v-model="selectedCar" :options="carBrands"></dropdown-select>
+    <dropdown-select label="Which would you rather drive?" v-model="selectedCar" :options="carBrands"></dropdown-select>
     <span v-cloak>You selected: {{ selectedCar }}</span>
+
+    <br/>
+    <br/>
+
+    <div>This dropdown defaults to showing counties, rather than showing the fruit types:</div>
+    <dropdown-select v-model="selectedCountry"></dropdown-select>
+    <span v-cloak>You selected: {{ selectedCountry }}</span>
 
     <br/><br/><br/><br/><br/><br/>
     <hr/>

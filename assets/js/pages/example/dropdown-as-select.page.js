@@ -6,6 +6,7 @@ parasails.registerPage('dropdown-as-select', {
     fruitTypes: [],
     selectedCar: null,
     selectedFruit: null,
+    selectedCountry: null
   },
 
   beforeMount: function() {
