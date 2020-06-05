@@ -14,6 +14,11 @@ parasails.registerComponent('quill-view', {
   //  ╠═╝╠╦╝║ ║╠═╝╚═╗
   //  ╩  ╩╚═╚═╝╩  ╚═╝
   props: {
+
+    value: {
+      type: String
+    },
+
     content: {
       value: {
         type: String

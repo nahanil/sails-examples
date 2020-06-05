@@ -15,9 +15,11 @@ parasails.registerComponent('quill-editor', {
   //  ╩  ╩╚═╚═╝╩  ╚═╝
   props: {
     content: {
-      value: {
         type: String
-      },
+    },
+
+    itemId: {
+      value: String
     }
   },
 
@@ -118,6 +120,8 @@ parasails.registerComponent('quill-editor', {
             partial: JSON.stringify(change)
           });
           */
+
+          console.log('itemId: '+this.itemId);
 
           // Send entire document
           $.post('/api/v1/quill/update', {
