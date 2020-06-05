@@ -45,7 +45,8 @@ parasails.registerComponent('quill-editor', {
   data: function () {
     return {
       status: 'saved',
-      change: null
+      change: null,
+      saveTimer: null
     };
   },
 
@@ -107,6 +108,7 @@ parasails.registerComponent('quill-editor', {
 
   beforeDestroy () {
     window.removeEventListener('beforeunload', this.beforePageExit)
+    clearInterval(this.saveTimer)
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
@@ -139,7 +141,7 @@ parasails.registerComponent('quill-editor', {
       });
 
       // Save periodically
-      setInterval(() => {
+      this.saveTimer = setInterval(() => {
         if (this.change.length() > 0) {
           console.log('Saving changes', this.change);
 
@@ -160,9 +162,8 @@ parasails.registerComponent('quill-editor', {
             _csrf: window.SAILS_LOCALS._csrf
           }, () => {
             this.status = 'saved'
+            this.change = new Delta();
           });
-
-          this.change = new Delta();
         }
       }, this.saveInterval);
 
