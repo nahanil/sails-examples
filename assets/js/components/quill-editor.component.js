@@ -27,7 +27,8 @@ parasails.registerComponent('quill-editor', {
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: function () {
     return {
-      status: 'saved'
+      status: 'saved',
+      change: null
     };
   },
 
@@ -88,9 +89,12 @@ parasails.registerComponent('quill-editor', {
 
     this._initializeComponent();
     // setData();
-
   },
-  beforeDestroy: function() {
+
+  beforeDestroy () {
+    // Hmm. . . this doesn't actually get called?
+    alert('beforeDestroy')
+    window.removeEventListener('beforeunload', this.beforePageExit)
     //…
   },
 
@@ -98,7 +102,6 @@ parasails.registerComponent('quill-editor', {
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
-
     click: async function(){
       this.$emit('click');
     },
@@ -116,9 +119,9 @@ parasails.registerComponent('quill-editor', {
         theme: 'snow'
       });
 
-      var change = new Delta();
+      this.change = new Delta();
       quill.on('text-change', (delta) => {
-        change = change.compose(delta);
+        this.change = this.change.compose(delta);
 
         this.status = 'dirty'
       });
@@ -131,8 +134,8 @@ parasails.registerComponent('quill-editor', {
 
       // Save periodically
       setInterval(() => {
-        if (change.length() > 0) {
-          console.log('Saving changes', change);
+        if (this.change.length() > 0) {
+          console.log('Saving changes', this.change);
 
           // Send partial changes
           /*
@@ -153,15 +156,18 @@ parasails.registerComponent('quill-editor', {
             this.status = 'saved'
           });
 
-          change = new Delta();
+          this.change = new Delta();
         }
       }, 5 * 1000);
 
       // Check for unsaved data
-      window.onbeforeunload = function() {
-        if (change.length() > 0) {
-          return 'Er zijn wijzigingen die nog niet opgeslagen zijn. Weet u zeker dat u deze pagina wilt sluiten?';
-        }
+      window.addEventListener('beforeunload', this.beforePageExit)
+    },
+
+    beforePageExit (e) {
+      if (this.change.length() > 0) {
+        e.preventDefault()
+        e.returnValue = 'Er zijn wijzigingen die nog niet opgeslagen zijn. Weet u zeker dat u deze pagina wilt sluiten?';
       }
     }
   }
