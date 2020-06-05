@@ -9,7 +9,7 @@
  * -----------------------------------------------------------------------------
  */
 
-parasails.registerComponent('quill-content', {
+parasails.registerComponent('quill-view', {
   //  ╔═╗╦═╗╔═╗╔═╗╔═╗
   //  ╠═╝╠╦╝║ ║╠═╝╚═╗
   //  ╩  ╩╚═╚═╝╩  ╚═╝
