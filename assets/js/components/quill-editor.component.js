@@ -42,13 +42,12 @@ parasails.registerComponent('quill-editor', {
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
-  data: function () {
-    return {
-      status: 'saved',
-      change: null,
-      saveTimer: null
-    };
-  },
+  data: () => ({
+    quill: null,
+    status: 'saved',
+    change: null,
+    saveTimer: null
+  }),
 
   computed: {
     statusClass () {
@@ -84,26 +83,30 @@ parasails.registerComponent('quill-editor', {
   //  ╠═╣ ║ ║║║║
   //  ╩ ╩ ╩ ╩ ╩╩═╝
   template: `
-        <div>
-            <div ref="editor" class="ql-editor" style="min-height:300px"/>
-            <br/>
+    <div>
+      <div ref="editor" class="ql-editor" style="min-height:300px"/>
+      <br/>
 
-            <div>
-                Status:
-                <span class="badge" :class="statusClass">{{ statusLabel }}</span>
-            </div>
-        </div>
+      <div>
+        Status:
+        <span class="badge" :class="statusClass">{{ statusLabel }}</span>
+      </div>
+    </div>
   `,
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
   //  ║  ║╠╣ ║╣ ║  ╚╦╝║  ║  ║╣
   //  ╩═╝╩╚  ╚═╝╚═╝ ╩ ╚═╝╩═╝╚═╝
-  beforeMount: function() {
-    //…
+  // beforeMount: function() { },
 
-  },
-  mounted: async function(){
-    this._initializeComponent();
+  mounted () {
+    this.initializeComponent();
+
+    // Save periodically
+    this.saveTimer = setInterval(this.save, this.saveInterval);
+
+    // Check for unsaved data on leaving page
+    window.addEventListener('beforeunload', this.beforePageExit)
   },
 
   beforeDestroy () {
@@ -115,11 +118,11 @@ parasails.registerComponent('quill-editor', {
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
-    _initializeComponent: function () {
+    initializeComponent () {
       console.log('quill.component.js:_initialize()');
       var Delta = Quill.import('delta');
 
-      var quill = new Quill(this.$refs.editor, {
+      this.quill = new Quill(this.$refs.editor, {
         modules: {
           toolbar: this.showToolbar
         },
@@ -129,47 +132,41 @@ parasails.registerComponent('quill-editor', {
 
       console.log('this.value: ', this.value);
       if (this.value.content) {
-        quill.setContents(this.value.content);
+        this.quill.setContents(this.value.content);
       }
 
       this.change = new Delta();
-      quill.on('text-change', (delta) => {
-        this.change = this.change.compose(delta);
-        this.status = 'dirty'
-        this.value.content = quill.getContents()
-        this.$emit('input', this.value)
+      this.quill.on('text-change', this.onChange);
+    },
+
+    onChange (delta) {
+      this.change = this.change.compose(delta);
+      this.status = 'dirty'
+      this.value.content = this.quill.getContents()
+      this.$emit('input', this.value)
+    },
+
+    save () {
+      if (this.change.length() < 1) {
+        return
+      }
+
+      console.log('Saving changes', {
+        change: this.change,
+        pageId: this.value.pageId
       });
 
-      // Save periodically
-      this.saveTimer = setInterval(() => {
-        if (this.change.length() < 1) {
-          return
-        }
-        console.log('Saving changes', this.change);
-
-        // Send partial changes
-        /*
-        $.post('/api/v1/quill/update', {
-          partial: JSON.stringify(change)
-        });
-        */
-
-        console.log('pageId: ' + this.value.pageId);
-
-        // Send entire document
-        this.status = 'saving'
-        $.post('/api/v1/quill/update', {
-          content: JSON.stringify(quill.getContents()),
-          pageId: this.value.pageId,
-          _csrf: window.SAILS_LOCALS._csrf
-        }, () => {
-          this.status = 'saved'
-          this.change = new Delta();
-        });
-      }, this.saveInterval);
-
-      // Check for unsaved data
-      window.addEventListener('beforeunload', this.beforePageExit)
+      // Send entire document
+      this.status = 'saving'
+      $.post('/api/v1/quill/update', {
+        content: JSON.stringify(this.quill.getContents()),
+        pageId: this.value.pageId,
+        _csrf: window.SAILS_LOCALS._csrf
+      }, () => {
+        this.status = 'saved'
+        var Delta = Quill.import('delta');
+        this.change = new Delta();
+      });
     },
 
     beforePageExit (e) {
