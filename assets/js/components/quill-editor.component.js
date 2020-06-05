@@ -66,8 +66,7 @@ parasails.registerComponent('quill-editor', {
   //  ╩ ╩ ╩ ╩ ╩╩═╝
   template: `
         <div>
-            <div id="quillArea" class="ql-editor" style="min-height:300px"/>
-            <textarea style="display:none" id="hiddenArea" name="content"></textarea>
+            <div ref="editor" class="ql-editor" style="min-height:300px"/>
             <br/>
 
             <div>
@@ -109,7 +108,7 @@ parasails.registerComponent('quill-editor', {
 
       var Delta = Quill.import('delta');
 
-      var quill = new Quill('#quillArea', {
+      var quill = new Quill(this.$refs.editor, {
         modules: {
           toolbar: true
         },
