@@ -25,13 +25,38 @@ parasails.registerComponent('quill-editor', {
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
-  data: function (){
-
+  data: function () {
     return {
-      //…
-      // content: 'This was defined in quill.component.js:data()',
-
+      status: 'saved'
     };
+  },
+
+  computed: {
+    statusClass () {
+      switch (this.status) {
+        case 'saved':
+          return 'badge-success'
+        case 'saving':
+          return 'badge-info'
+        case 'dirty':
+          return 'badge-warning'
+      }
+
+      return 'badge-light'
+    },
+
+    statusLabel () {
+      switch (this.status) {
+        case 'saved':
+          return 'Saved'
+        case 'saving':
+          return 'Saving...'
+        case 'dirty':
+          return 'Modified'
+      }
+
+      return '?'
+    },
   },
 
   //  ╦ ╦╔╦╗╔╦╗╦
@@ -43,9 +68,9 @@ parasails.registerComponent('quill-editor', {
             <textarea style="display:none" id="hiddenArea" name="content"></textarea>
             <br/>
 
-            <div class="row">
-                <div class="col-1">Status:</div>
-                <div id="statusArea" class="col-1 text-center alert-success">Saved</div>
+            <div>
+                Status:
+                <span class="badge" :class="statusClass">{{ statusLabel }}</span>
             </div>
         </div>
   `,
@@ -91,13 +116,10 @@ parasails.registerComponent('quill-editor', {
       });
 
       var change = new Delta();
-      quill.on('text-change', function(delta) {
+      quill.on('text-change', (delta) => {
         change = change.compose(delta);
 
-        $('#statusArea').text("Modified");
-        $('#statusArea').removeClass("alert-success");
-        $('#statusArea').addClass("alert-warning");
-
+        this.status = 'dirty'
       });
 
       console.log('this.content: ' + this.value.content);
@@ -107,10 +129,8 @@ parasails.registerComponent('quill-editor', {
       }
 
       // Save periodically
-      setInterval(function()
-      {
-        if (change.length() > 0)
-        {
+      setInterval(() => {
+        if (change.length() > 0) {
           console.log('Saving changes', change);
 
           // Send partial changes
@@ -123,18 +143,18 @@ parasails.registerComponent('quill-editor', {
           console.log('pageId: ' + this.pageId);
 
           // Send entire document
+          this.status = 'saving'
           $.post('/api/v1/quill/update', {
             content: JSON.stringify(quill.getContents()),
             pageId: '1',
             _csrf: window.SAILS_LOCALS._csrf
+          }, () => {
+            this.status = 'saved'
           });
-          $('#statusArea').text("Saved");
-          $('#statusArea').removeClass("alert-warning");
-          $('#statusArea').addClass("alert-success");
 
           change = new Delta();
         }
-      }, 5*1000);
+      }, 5 * 1000);
 
       // Check for unsaved data
       window.onbeforeunload = function() {
