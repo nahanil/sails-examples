@@ -11,6 +11,12 @@ module.exports = {
       description: 'Content to be updated.',
       type: 'string',
       required: true
+    },
+
+    pageId: {
+      description: 'The pageId to be updated',
+      type: 'string',
+      required: true
     }
 
   },
@@ -26,10 +32,10 @@ module.exports = {
 
   fn: async function (inputs) {
 
-    console.log('updating content with: '+inputs.content);
+    console.log('updating content with: ' + inputs.content + ' for page ' + inputs.pageId);
 
     // Update the content
-    await Quill.update( {pageId: '1'} )
+    await Quill.update( {pageId: inputs.pageId} )
     .set({
       content: inputs.content
     });
