@@ -17,21 +17,67 @@ parasails.registerComponent('quill-editor', {
     value: {
       type: Object
     },
-    pageId: {
-      type: String
+
+    saveInterval: {
+      type: Number,
+      default: 5 * 1000
+    },
+
+    placeholder: {
+      type: String,
+      default: 'Your text goes here.'
+    },
+
+    theme: {
+      type: String,
+      default: 'snow'
+    },
+
+    showToolbar: {
+      type: Boolean,
+      default: true
     }
   },
 
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
-  data: function (){
-
+  data: function () {
     return {
-      //…
-      // content: 'This was defined in quill.component.js:data()',
-
+      status: 'saved',
+      change: null,
+      saveTimer: null
     };
+  },
+
+  computed: {
+    statusClass () {
+      switch (this.status) {
+        case 'saved':
+          return 'badge-success'
+        case 'saving':
+          return 'badge-info'
+        case 'dirty':
+          return 'badge-warning'
+      }
+
+      return 'badge-light'
+    },
+
+    // TBH these could be like { saved: 'something', saving: 'soemthing' }
+    // and passed in as a prop for i18n stuff
+    statusLabel () {
+      switch (this.status) {
+        case 'saved':
+          return 'Saved'
+        case 'saving':
+          return 'Saving...'
+        case 'dirty':
+          return 'Modified'
+      }
+
+      return '?'
+    },
   },
 
   //  ╦ ╦╔╦╗╔╦╗╦
@@ -39,13 +85,12 @@ parasails.registerComponent('quill-editor', {
   //  ╩ ╩ ╩ ╩ ╩╩═╝
   template: `
         <div>
-            <div id="quillArea" class="ql-editor" style="min-height:300px"/>
-            <textarea style="display:none" id="hiddenArea" name="content"></textarea>
+            <div ref="editor" class="ql-editor" style="min-height:300px"/>
             <br/>
 
-            <div class="row">
-                <div class="col-1">Status:</div>
-                <div id="statusArea" class="col-1 text-center alert-success">Saved</div>
+            <div>
+                Status:
+                <span class="badge" :class="statusClass">{{ statusLabel }}</span>
             </div>
         </div>
   `,
@@ -58,89 +103,79 @@ parasails.registerComponent('quill-editor', {
 
   },
   mounted: async function(){
-    //…
-
     this._initializeComponent();
-    // setData();
-
   },
-  beforeDestroy: function() {
-    //…
+
+  beforeDestroy () {
+    window.removeEventListener('beforeunload', this.beforePageExit)
+    clearInterval(this.saveTimer)
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
-
-    click: async function(){
-      this.$emit('click');
-    },
-
     _initializeComponent: function () {
       console.log('quill.component.js:_initialize()');
-
       var Delta = Quill.import('delta');
 
-      var quill = new Quill('#quillArea', {
+      var quill = new Quill(this.$refs.editor, {
         modules: {
-          toolbar: true
+          toolbar: this.showToolbar
         },
-        placeholder: 'Your text goes here.',
-        theme: 'snow'
+        placeholder: this.placeholder,
+        theme: this.theme
       });
 
-      var change = new Delta();
-      quill.on('text-change', function(delta) {
-        change = change.compose(delta);
-
-        $('#statusArea').text("Modified");
-        $('#statusArea').removeClass("alert-success");
-        $('#statusArea').addClass("alert-warning");
-
-      });
-
-      console.log('this.content: ' + this.value.content);
-      if (this.value.content)
-      {
+      console.log('this.value: ', this.value);
+      if (this.value.content) {
         quill.setContents(this.value.content);
       }
 
+      this.change = new Delta();
+      quill.on('text-change', (delta) => {
+        this.change = this.change.compose(delta);
+        this.status = 'dirty'
+        this.value.content = quill.getContents()
+        this.$emit('input', this.value)
+      });
+
       // Save periodically
-      setInterval(function()
-      {
-        if (change.length() > 0)
-        {
-          console.log('Saving changes', change);
-
-          // Send partial changes
-          /*
-          $.post('/api/v1/quill/update', {
-            partial: JSON.stringify(change)
-          });
-          */
-
-          console.log('pageId: ' + this.pageId);
-
-          // Send entire document
-          $.post('/api/v1/quill/update', {
-            content: JSON.stringify(quill.getContents()),
-            pageId: '1',
-            _csrf: window.SAILS_LOCALS._csrf
-          });
-          $('#statusArea').text("Saved");
-          $('#statusArea').removeClass("alert-warning");
-          $('#statusArea').addClass("alert-success");
-
-          change = new Delta();
+      this.saveTimer = setInterval(() => {
+        if (this.change.length() < 1) {
+          return
         }
-      }, 5*1000);
+        console.log('Saving changes', this.change);
+
+        // Send partial changes
+        /*
+        $.post('/api/v1/quill/update', {
+          partial: JSON.stringify(change)
+        });
+        */
+
+        console.log('pageId: ' + this.value.pageId);
+
+        // Send entire document
+        this.status = 'saving'
+        $.post('/api/v1/quill/update', {
+          content: JSON.stringify(quill.getContents()),
+          pageId: this.value.pageId,
+          _csrf: window.SAILS_LOCALS._csrf
+        }, () => {
+          this.status = 'saved'
+          this.change = new Delta();
+        });
+      }, this.saveInterval);
 
       // Check for unsaved data
-      window.onbeforeunload = function() {
-        if (change.length() > 0) {
-          return 'Er zijn wijzigingen die nog niet opgeslagen zijn. Weet u zeker dat u deze pagina wilt sluiten?';
-        }
+      window.addEventListener('beforeunload', this.beforePageExit)
+    },
+
+    beforePageExit (e) {
+      if (this.change.length() > 0) {
+        e.preventDefault()
+        e.returnValue = 'Er zijn wijzigingen die nog niet opgeslagen zijn. Weet u zeker dat u deze pagina wilt sluiten?';
       }
     }
   }

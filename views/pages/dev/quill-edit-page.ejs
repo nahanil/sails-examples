@@ -1,59 +1,71 @@
-<div class='container' id='quill-edit-page' >
-    <br/>
+<div class='container' id='quill-edit-page'>
+    <br />
     <h3>Quill autosave example</h3>
-    <br/>
+    <br />
     <div>
         <h5>Status</h5>
         <div>
-            <span class="alert-primary">Implementation finished.</span><br/><br/>
+            <span class="alert-primary">Implementation finished.</span><br /><br />
         </div>
     </div>
 
-    <br/>
+    <br />
 
     <div style="min-height:300px">
         <h4>Quill editor</h4>
         This one works:
-        <!--
-        <quill-editor content="<%=content%>" itemId="<%=itemId%>" ></quill-editor>
-        <br/>
-        Does not work:
-        -->
-       <quill-editor v-model="quill" page-id="itemId"></quill-editor>
-    </div>
-    <br/>
+        <quill-editor v-model="quill"></quill-editor>
 
-    <br/><br/><br/>
+        <div class="form-check">
+            <input v-model="debug" type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Debug</label>
+        </div>
+        <pre v-show="debug">{{ quill }}</pre>
+
+
+        <hr/>
+        This one works:
+        <quill-editor
+            v-model="quill"
+            :show-toolbar="true"
+            placeholder="Enter some fancy text"
+            ></quill-editor>
+    </div>
+    <br />
+
+    <br /><br /><br />
 
     <div>
         <H3>Useful links.</H3>
-        <a href="https://stackoverflow.com/questions/42541353/how-do-i-retrieve-the-contents-of-a-quill-text-editor/42541886#42541886">https://stackoverflow.com/questions/42541353/how-do-i-retrieve-the-contents-of-a-quill-text-editor/42541886#42541886</a>
+        <a
+            href="https://stackoverflow.com/questions/42541353/how-do-i-retrieve-the-contents-of-a-quill-text-editor/42541886#42541886">https://stackoverflow.com/questions/42541353/how-do-i-retrieve-the-contents-of-a-quill-text-editor/42541886#42541886</a>
         <a href="https://codepen.io/quill/pen/RRYBEP">https://codepen.io/quill/pen/RRYBEP</a>
         <ul>
             <li>https://stackoverflow.com/questions/50123460/sails-1-0-post-route-gives-403-error</li>
-            <li>https://stackoverflow.com/questions/56659815/what-are-my-options-when-it-comes-to-saving-and-reloading-data-with-quill-js</li>
+            <li>https://stackoverflow.com/questions/56659815/what-are-my-options-when-it-comes-to-saving-and-reloading-data-with-quill-js
+            </li>
             <li>https://stackoverflow.com/questions/55454947/how-can-i-store-composed-changes-using-quill</li>
         </ul>
     </div>
 
-    <hr/>
+    <hr />
     <div>
         <h5>Colors</h5>
         <div>
-            <span class="alert-primary"><i>alert-primary</i></span><br/>
-            <span class="alert-secondary"><i>alert-secondary</i></span><br/>
-            <span class="alert-success"><i>alert-success</i></span><br/>
-            <span class="alert-warning"><i>alert-warning</i></span><br/>
-            <span class="alert-danger"><i>alert-danger</i></span><br/>
-            <span class="alert-light"><i>alert-light</i></span><br/>
-            <span class="alert-dark"><i>alert-dark</i></span><br/>
+            <span class="alert-primary"><i>alert-primary</i></span><br />
+            <span class="alert-secondary"><i>alert-secondary</i></span><br />
+            <span class="alert-success"><i>alert-success</i></span><br />
+            <span class="alert-warning"><i>alert-warning</i></span><br />
+            <span class="alert-danger"><i>alert-danger</i></span><br />
+            <span class="alert-light"><i>alert-light</i></span><br />
+            <span class="alert-dark"><i>alert-dark</i></span><br />
 
         </div>
     </div>
 
-    <br/><br/>
+    <br /><br />
 
-    <hr/>
+    <hr />
 </div>
 
 <%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
