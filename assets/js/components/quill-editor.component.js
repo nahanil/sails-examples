@@ -14,12 +14,11 @@ parasails.registerComponent('quill-editor', {
   //  ╠═╝╠╦╝║ ║╠═╝╚═╗
   //  ╩  ╩╚═╚═╝╩  ╚═╝
   props: {
-    content: {
-        type: String
+    value: {
+      type: Object
     },
-
     pageId: {
-      value: String
+      type: String
     }
   },
 
@@ -101,10 +100,10 @@ parasails.registerComponent('quill-editor', {
 
       });
 
-      console.log('this.content: ' + this.content);
-      if (this.content)
+      console.log('this.content: ' + this.value.content);
+      if (this.value.content)
       {
-        quill.setContents(JSON.parse(this.content));
+        quill.setContents(this.value.content);
       }
 
       // Save periodically
@@ -121,7 +120,7 @@ parasails.registerComponent('quill-editor', {
           });
           */
 
-          console.log('pageId: '+this.pageId);
+          console.log('pageId: ' + this.pageId);
 
           // Send entire document
           $.post('/api/v1/quill/update', {
