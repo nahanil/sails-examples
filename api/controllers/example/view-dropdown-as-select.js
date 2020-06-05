@@ -12,7 +12,8 @@ module.exports = {
   fn: async function () {
     const carBrands = ["Audi", "BMW", "Volvo", "Saab"];
     const fruitTypes = ["Banana", "Apple", "Kiwi", "Orange"];
-    let selectedCar = selectedFruit = '';
+    let selectedCar = 'Audi';
+    let selectedFruit = 'BMW';
 
     return {
       carBrands,

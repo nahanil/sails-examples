@@ -10,7 +10,7 @@ module.exports = {
   attributes: {
 
     content: {
-      type:'string'
+      type: 'string'
     },
 
     pageId: {

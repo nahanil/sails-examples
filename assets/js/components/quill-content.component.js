@@ -1,7 +1,7 @@
 /**
- * <quill-editor>
+ * <quill-content>
  * -----------------------------------------------------------------------------
- * A button with a built-in loading spinner.
+ * Shows the content of a quill editor (read-only)
  *
  * @type {Component}
  *
@@ -13,9 +13,13 @@ parasails.registerComponent('quill-content', {
   //  ╔═╗╦═╗╔═╗╔═╗╔═╗
   //  ╠═╝╠╦╝║ ║╠═╝╚═╗
   //  ╩  ╩╚═╚═╝╩  ╚═╝
-  props: [
-    'content'
-  ],
+  props: {
+    content: {
+      value: {
+        type: String
+      },
+    }
+  },
 
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
@@ -50,7 +54,6 @@ parasails.registerComponent('quill-content', {
     //…
 
     this._initializeComponent();
-    // setData();
 
   },
   beforeDestroy: function() {
@@ -75,20 +78,15 @@ parasails.registerComponent('quill-content', {
         modules: {
           toolbar: false
         },
-        placeholder: 'Licht uw klacht toe of herschrijf het artikel.',
+        placeholder: 'Your text goes here.',
         theme: 'snow',
         readOnly: true
       });
 
-      quill.setContents(JSON.parse(this.content));
+      if (this.content)
+      {
+        quill.setContents(JSON.parse(this.content));
+      }
     },
-
-    setData: function () {
-
-      console.log('quill.component.js:setData()');
-
-      quill.setContents(JSON.parse(content));
-    }
-
   }
 });

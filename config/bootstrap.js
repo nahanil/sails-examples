@@ -64,7 +64,7 @@ module.exports.bootstrap = async function() {
   ]);
 
   await Quill.createEach([
-    {pageId: '1', content: 'Simple content'},
+    {pageId: '1', content: JSON.stringify({ops:[{"insert":"\n"}]})},
     {pageId: '2', content: JSON.stringify({ops:[{"insert":"This is nice"}]})},
     ]);
 

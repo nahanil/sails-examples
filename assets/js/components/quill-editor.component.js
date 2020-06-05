@@ -13,9 +13,13 @@ parasails.registerComponent('quill-editor', {
   //  ╔═╗╦═╗╔═╗╔═╗╔═╗
   //  ╠═╝╠╦╝║ ║╠═╝╚═╗
   //  ╩  ╩╚═╚═╝╩  ╚═╝
-  props: [
-    'content'
-  ],
+  props: {
+    content: {
+      value: {
+        type: String
+      },
+    }
+  },
 
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
@@ -81,26 +85,25 @@ parasails.registerComponent('quill-editor', {
         modules: {
           toolbar: true
         },
-        placeholder: 'Licht uw klacht toe of herschrijf het artikel.',
+        placeholder: 'Your text goes here.',
         theme: 'snow'
       });
 
-      var ignoreChange = true; //only the first time
       var change = new Delta();
       quill.on('text-change', function(delta) {
         change = change.compose(delta);
-        if (ignoreChange)
-        {
-          ignoreChange = false
-        }
-        else {
-          $('#statusArea').text("Modified");
-          $('#statusArea').removeClass("alert-success");
-          $('#statusArea').addClass("alert-warning");
-        }
+
+        $('#statusArea').text("Modified");
+        $('#statusArea').removeClass("alert-success");
+        $('#statusArea').addClass("alert-warning");
+
       });
 
-      quill.setContents(JSON.parse(this.content));
+      console.log('this.content: ' + this.content);
+      if (this.content)
+      {
+        quill.setContents(JSON.parse(this.content));
+      }
 
       // Save periodically
       setInterval(function()

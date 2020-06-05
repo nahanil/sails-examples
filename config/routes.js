@@ -17,7 +17,8 @@ module.exports.routes = {
   // Note that you can also directly route to a view...!
 
   'GET /dev':                { action: 'dev/view-devpage' },
-  'GET /quill':              { action: 'dev/view-quillpage' },
+  'GET /quill-edit':         { action: 'dev/view-quill-edit-page' },
+  'GET /quill-view':         { action: 'dev/view-quill-view-page' },
 
   'POST /api/v1/quill/update': { action: 'dev/update-content' },
 

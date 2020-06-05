@@ -23,6 +23,8 @@ module.exports.policies = {
   'deliver-contact-form-message': true,
 
   'dev/view-devpage': true,
+  'dev/view-quill-view-page': true,
+  'dev/view-quill-edit-page': true,
   'dev/*': true,
 
   'api/v1/quill/update': true,

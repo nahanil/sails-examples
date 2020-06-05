@@ -1,6 +1,6 @@
 module.exports = {
 
-  friendlyName: 'View quillpage',
+  friendlyName: 'View quillviewpage',
 
   description: 'Display the quillpage.',
 
@@ -8,7 +8,7 @@ module.exports = {
 
     success: {
       description: 'Showing the quill page.',
-      viewTemplatePath: 'pages/dev/quillpage'
+      viewTemplatePath: 'pages/dev/quill-view-page'
     },
 
   },

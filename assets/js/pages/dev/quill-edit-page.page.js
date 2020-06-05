@@ -1,4 +1,4 @@
-parasails.registerPage('quillpage', {
+parasails.registerPage('quill-edit-page', {
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
@@ -11,13 +11,13 @@ parasails.registerPage('quillpage', {
   //  ╩═╝╩╚  ╚═╝╚═╝ ╩ ╚═╝╩═╝╚═╝
   beforeMount: function() {
 
-    console.log('At quillpage.page.js:beforeMount()');
+    console.log('At quill-edit-page.page.js:beforeMount()');
     // Attach any initial data from the server.
     _.extend(this, SAILS_LOCALS);
   },
 
   mounted: async function(){
-    console.log('At quillpage.page.js:mounted()');
+    console.log('At quill-edit-page.page.js:mounted()');
 
     this._initiate();
   },
