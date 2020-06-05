@@ -26,6 +26,7 @@ module.exports = {
 
     // success
     return {
+      quill: quill,
       content: quill.content,
       itemId: '1'
     };
