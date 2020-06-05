@@ -45,6 +45,8 @@ parasails.registerComponent('quill-editor', {
       return 'badge-light'
     },
 
+    // TBH these could be like { saved: 'something', saving: 'soemthing' }
+    // and passed in as a prop for i18n stuff
     statusLabel () {
       switch (this.status) {
         case 'saved':
