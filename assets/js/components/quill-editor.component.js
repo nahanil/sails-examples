@@ -17,9 +17,6 @@ parasails.registerComponent('quill-editor', {
     value: {
       type: Object
     },
-    pageId: {
-      type: String
-    }
   },
 
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
@@ -85,30 +82,19 @@ parasails.registerComponent('quill-editor', {
 
   },
   mounted: async function(){
-    //…
-
     this._initializeComponent();
-    // setData();
   },
 
   beforeDestroy () {
-    // Hmm. . . this doesn't actually get called?
-    alert('beforeDestroy')
     window.removeEventListener('beforeunload', this.beforePageExit)
-    //…
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
-    click: async function(){
-      this.$emit('click');
-    },
-
     _initializeComponent: function () {
       console.log('quill.component.js:_initialize()');
-
       var Delta = Quill.import('delta');
 
       var quill = new Quill(this.$refs.editor, {
@@ -119,18 +105,18 @@ parasails.registerComponent('quill-editor', {
         theme: 'snow'
       });
 
+      console.log('this.value: ', this.value);
+      if (this.value.content) {
+        quill.setContents(this.value.content);
+      }
+
       this.change = new Delta();
       quill.on('text-change', (delta) => {
         this.change = this.change.compose(delta);
-
         this.status = 'dirty'
+        this.value.content = quill.getContents()
+        this.$emit('input', this.value)
       });
-
-      console.log('this.content: ' + this.value.content);
-      if (this.value.content)
-      {
-        quill.setContents(this.value.content);
-      }
 
       // Save periodically
       setInterval(() => {
@@ -144,13 +130,13 @@ parasails.registerComponent('quill-editor', {
           });
           */
 
-          console.log('pageId: ' + this.pageId);
+          console.log('pageId: ' + this.value.pageId);
 
           // Send entire document
           this.status = 'saving'
           $.post('/api/v1/quill/update', {
             content: JSON.stringify(quill.getContents()),
-            pageId: '1',
+            pageId: this.value.pageId,
             _csrf: window.SAILS_LOCALS._csrf
           }, () => {
             this.status = 'saved'

@@ -14,12 +14,13 @@
     <div style="min-height:300px">
         <h4>Quill editor</h4>
         This one works:
-        <!--
-        <quill-editor content="<%=content%>" itemId="<%=itemId%>" ></quill-editor>
-        <br/>
-        Does not work:
-        -->
-       <quill-editor v-model="quill" page-id="itemId"></quill-editor>
+        <quill-editor v-model="quill"></quill-editor>
+
+       <div class="form-check">
+          <input v-model="debug" type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Debug</label>
+       </div>
+       <pre v-show="debug">{{ quill }}</pre>
     </div>
     <br/>
 
