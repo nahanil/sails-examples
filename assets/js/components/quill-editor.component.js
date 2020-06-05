@@ -142,29 +142,30 @@ parasails.registerComponent('quill-editor', {
 
       // Save periodically
       this.saveTimer = setInterval(() => {
-        if (this.change.length() > 0) {
-          console.log('Saving changes', this.change);
-
-          // Send partial changes
-          /*
-          $.post('/api/v1/quill/update', {
-            partial: JSON.stringify(change)
-          });
-          */
-
-          console.log('pageId: ' + this.value.pageId);
-
-          // Send entire document
-          this.status = 'saving'
-          $.post('/api/v1/quill/update', {
-            content: JSON.stringify(quill.getContents()),
-            pageId: this.value.pageId,
-            _csrf: window.SAILS_LOCALS._csrf
-          }, () => {
-            this.status = 'saved'
-            this.change = new Delta();
-          });
+        if (this.change.length() < 1) {
+          return
         }
+        console.log('Saving changes', this.change);
+
+        // Send partial changes
+        /*
+        $.post('/api/v1/quill/update', {
+          partial: JSON.stringify(change)
+        });
+        */
+
+        console.log('pageId: ' + this.value.pageId);
+
+        // Send entire document
+        this.status = 'saving'
+        $.post('/api/v1/quill/update', {
+          content: JSON.stringify(quill.getContents()),
+          pageId: this.value.pageId,
+          _csrf: window.SAILS_LOCALS._csrf
+        }, () => {
+          this.status = 'saved'
+          this.change = new Delta();
+        });
       }, this.saveInterval);
 
       // Check for unsaved data
