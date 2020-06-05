@@ -17,6 +17,26 @@ parasails.registerComponent('quill-editor', {
     value: {
       type: Object
     },
+
+    saveInterval: {
+      type: Number,
+      default: 5 * 1000
+    },
+
+    placeholder: {
+      type: String,
+      default: 'Your text goes here.'
+    },
+
+    theme: {
+      type: String,
+      default: 'snow'
+    },
+
+    showToolbar: {
+      type: Boolean,
+      default: true
+    }
   },
 
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
@@ -99,10 +119,10 @@ parasails.registerComponent('quill-editor', {
 
       var quill = new Quill(this.$refs.editor, {
         modules: {
-          toolbar: true
+          toolbar: this.showToolbar
         },
-        placeholder: 'Your text goes here.',
-        theme: 'snow'
+        placeholder: this.placeholder,
+        theme: this.theme
       });
 
       console.log('this.value: ', this.value);
@@ -144,7 +164,7 @@ parasails.registerComponent('quill-editor', {
 
           this.change = new Delta();
         }
-      }, 5 * 1000);
+      }, this.saveInterval);
 
       // Check for unsaved data
       window.addEventListener('beforeunload', this.beforePageExit)
