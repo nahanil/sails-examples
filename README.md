@@ -4,8 +4,6 @@ A [Sails v1](https://sailsjs.com) example project to show how different things a
 
 Start application with `sails lift`, browse to [`http://localhost:1337`](http://localhost:1337) and view current tasks, the backlog and what is already available.
 
-Best, Mark
-
 ----
 
 #### Valuable resources:
