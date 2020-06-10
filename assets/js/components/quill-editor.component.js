@@ -1,7 +1,7 @@
 /**
  * <quill-editor>
  * -----------------------------------------------------------------------------
- * A button with a built-in loading spinner.
+ * An editor for the Quill component based on various samples found online.
  *
  * @type {Component}
  *
