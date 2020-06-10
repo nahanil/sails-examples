@@ -25,9 +25,7 @@ describe('map input to output', ()=>{
       const input = 'someInput';
 
       console.log('input = '+input);
-      var inputsString = {
-        something: input
-      };
+      var inputsString = { something: 'input' };
 
       var result = await sails.helpers.inputToOutput(inputsString);
       // var result = await sails.helpers.inputToOutput(input);

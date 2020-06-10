@@ -15,7 +15,7 @@ module.exports = {
     value: {
       description: 'The input value to be mapped.',
       type: 'string',
-      required: true,
+      // required: true,
     }
   },
 
