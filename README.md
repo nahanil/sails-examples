@@ -6,11 +6,18 @@ Start application with `sails lift`, browse to [`http://localhost:1337`](http://
 
 ----
 
-#### Valuable resources:
+#### Valuable resources, tutorials:
 - https://javascript.info/
+- [Sails tutorial (pre 1.0)](https://digitaldrummerj.github.io/sails-tutorial/)
 
-- SailsJS example App: https://ration.io/
-
+#### Notable eaxmples
+- [Sails 101 on GitHub](https://github.com/sails101)
+- [SailsJS example App Ration](https://ration.io/)
+- [Pagination example](https://github.com/xtrinch/vue-sails-todo)
+- [Multiplayer Quiz example](https://joanmira.com/tutorial-how-to-build-a-multi-player-quiz-app-with-sails-js/)
+    - Inspired by: [Chat app 1](https://github.com/Ajeey/node-sails-chat/) and [Chat app 2](https://github.com/sgress454/sailsChat-1.0)
+    - Live demo: https://node-sails-chat.herokuapp.com/chat
+- [JQuery Autocomplete](https://stackoverflow.com/questions/17957390/how-to-use-jquery-autocomplete-with-node-js)
 #### Valuable videos:
 - [Introduction video](https://www.youtube.com/watch?v=C43gU8G_V8Q)
 - [Main tutorial series about Sails part 1](https://www.youtube.com/watch?v=I2BdWa83_-U)
