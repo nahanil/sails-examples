@@ -8,42 +8,40 @@ module.exports = {
 
   inputs: {
 
-    something: {
-        type: 'string'
-      },
-
     value: {
       description: 'The input value to be mapped.',
       type: 'string',
-      // required: true,
+      required: true,
     }
   },
 
   exits: {
 
     success: {
-      output: {
-        type: 'string'
-      },
+
+      outputDescription: 'Some output.',
+      outputType: {
+        logo: 'string'
+      }
     }
 
   },
 
-  fn: async function({inputs, exits}) {
+  fn: async function({value}) {
 
-    console.log('inputs.medium: ' + inputs.something);
+    console.log('inputs.medium: ' + value);
 
-    switch (inputs.something) {
+    switch (value) {
       case 'someInput':
         return 'someOutput';
       case 'otherInput':
         return 'otherOutput';
       default:
-        return 'undefined.jpg';
+        return 'could not find a match';
     }
 
     // All done!
-    return exits.success(result);
+    return result;
 
   }
 

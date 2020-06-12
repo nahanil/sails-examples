@@ -1,6 +1,7 @@
 describe('map input to output', ()=>{
 
   var Sails = require('sails');
+  var assert = require('assert');
 
   before(function(done) {
     this.timeout(50000);
@@ -20,16 +21,14 @@ describe('map input to output', ()=>{
   // sails.lift();
 
   describe('mediumToLogo test', ()=>{
-    it('should respond with volkskrant.svg', async ()=>{
+    it('Should respond with someOutput', async ()=>{
 
       const input = 'someInput';
 
-      console.log('input = '+input);
-      var inputsString = { something: 'input' };
-
-      var result = await sails.helpers.inputToOutput(inputsString);
+      var result = await sails.helpers.inputToOutput(input);
       // var result = await sails.helpers.inputToOutput(input);
 
+      assert.equal('someOutput', result);
       console.log('result = '+ result);
     });
   });
