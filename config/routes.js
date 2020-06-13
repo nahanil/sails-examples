@@ -17,10 +17,10 @@ module.exports.routes = {
   // Note that you can also directly route to a view...!
 
   'GET /dev':                { action: 'dev/view-devpage' },
-  'GET /quill-edit':         { action: 'dev/view-quill-edit-page' },
-  'GET /quill-view':         { action: 'dev/view-quill-view-page' },
+  'GET /quill-edit':         { action: 'example/view-quill-edit-page' },
+  'GET /quill-view':         { action: 'example/view-quill-view-page' },
 
-  'POST /api/v1/quill/update': { action: 'dev/update-content' },
+  'POST /api/v1/quill/update': { action: 'example/update-content' },
 
   'GET /ajax':               { view: 'pages/ajax-form-example' },
 

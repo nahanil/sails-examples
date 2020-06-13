@@ -23,12 +23,12 @@ module.exports.policies = {
   'deliver-contact-form-message': true,
 
   'dev/view-devpage': true,
-  'dev/view-quill-view-page': true,
-  'dev/view-quill-edit-page': true,
+  'example/view-quill-view-page': true,
+  'example/view-quill-edit-page': true,
   'dev/*': true,
 
   'api/v1/quill/update': true,
-  'dev/update-content': true,
+  'example/update-content': true,
   'example/view-dropdown-as-select': true,
   // 'example-dropdown': true,
 

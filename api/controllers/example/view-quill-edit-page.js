@@ -1,6 +1,6 @@
 module.exports = {
 
-  friendlyName: 'View quillviewpage',
+  friendlyName: 'View quillpage',
 
   description: 'Display the quillpage.',
 
@@ -8,7 +8,7 @@ module.exports = {
 
     success: {
       description: 'Showing the quill page.',
-      viewTemplatePath: 'pages/dev/quill-view-page'
+      viewTemplatePath: 'pages/example/quill-edit-page'
     },
 
   },
@@ -19,14 +19,16 @@ module.exports = {
 
     console.log('quill.content: '+ quill.content);
 
-    if (quill === 'undefined')
-    {
+    if (!quill) {
       quill = { content: 'This content was added because _none_ was returned from the datastore.'};
     }
 
+    // This kinda smells.. Maybe use waterline's `json` type & `ref` in your 'update-the-thing' action
+    quill.content = JSON.parse(quill.content || '')
+
     // success
     return {
-      content: quill.content
+      quill: quill,
     };
 
   }
