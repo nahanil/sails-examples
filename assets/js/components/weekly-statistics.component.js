@@ -83,14 +83,14 @@ parasails.registerComponent('weekly-statistics', {
 
     _initializeComponent: async function () {
 
-      var selectedArrayItem = 2;
+      var selectedArrayItem = 0;
 
       var i;
       for (i = 0; i < this.value.length; i++) {
         console.log('this.value[i].week: '+this.value[i].week);
         console.log('week:               '+this.week);
-        console.log('this.value[i].week === this.week: '+ parseInt(this.value[i].week.valueOf(), 10) === parseInt(this.week.valueOf(),10));
-        if (parseInt(this.value[i].week.valueOf(), 10) === parseInt(this.week.valueOf(),10)) {
+        console.log('this.value[i].week === this.week: ', this.value[i].week.toString() === this.week);
+        if (this.value[i].week.toString().trim() === this.week.trim()) {
           selectedArrayItem = i;
         }
       }
