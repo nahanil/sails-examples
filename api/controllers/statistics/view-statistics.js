@@ -18,15 +18,8 @@ module.exports = {
 
     const year = '2020';
 
-    var weekStatistics = await WeekStatistic.find( { year: year } );
-
-    var availableWeeks = [];
-
-    var i;
-    for (i = 0; i < weekStatistics.length; i++) {
-      // console.log(weekStatistic[i].week);
-      availableWeeks[i] = weekStatistics[i].week.toString();
-    }
+    var weekStatistics = await WeekStatistic.find({ year });
+    var availableWeeks = weekStatistics.map(ws => ws.week.toString());
 
     console.log('availableWeeks: '+availableWeeks);
     console.log('availableWeeks: '+JSON.stringify(availableWeeks));

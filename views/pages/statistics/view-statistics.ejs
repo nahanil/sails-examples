@@ -14,7 +14,7 @@
     <% console.log("week: "+ week.constructor.name) %>
     <% console.log("year: "+ year.constructor.name) %>
 
-    <weekly-statistics v-model="weekData" :value="weekData" :weekData="weekData" :week="week" :year="year"/>
+    <weekly-statistics :key="week" v-model="weekData" :value="weekData" :weekData="weekData" :week="week" :year="year"/>
 
     <br/><br/>
 

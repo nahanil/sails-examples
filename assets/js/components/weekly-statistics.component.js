@@ -50,7 +50,7 @@ parasails.registerComponent('weekly-statistics', {
   template: `
         <div>
             <h5>Statistics for week {{week}}, {{year}}</h5>
-            <div id="chartdiv" style="width: 100%; height: 500px;"></div>
+            <div ref="chartdiv" style="width: 100%; height: 500px;"></div>
         </div>
   `,
 
@@ -68,6 +68,7 @@ parasails.registerComponent('weekly-statistics', {
   },
   beforeDestroy: function() {
     //…
+    this.chart.dispose();
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
@@ -82,47 +83,25 @@ parasails.registerComponent('weekly-statistics', {
     },
 
     _initializeComponent: async function () {
-
-      var selectedArrayItem = 2;
-
-      var i;
-      for (i = 0; i < this.value.length; i++) {
-        console.log('this.value[i].week: '+this.value[i].week);
-        console.log('week:               '+this.week);
-        console.log('this.value[i].week === this.week: '+ parseInt(this.value[i].week.valueOf(), 10) === parseInt(this.week.valueOf(),10));
-        if (parseInt(this.value[i].week.valueOf(), 10) === parseInt(this.week.valueOf(),10)) {
-          selectedArrayItem = i;
+      let weekData
+      for (const v of this.value) {
+        if (v.week === ~~this.week) {
+          weekData = v.results;
+          break;
         }
       }
-      console.log('selectedArrayItem: '+selectedArrayItem);
 
-      const weekData = this.value[selectedArrayItem].results;
+      if (!weekData) return;
 
-      am4core.ready(function () {
-
+      am4core.ready(() => {
         // Themes begin
         am4core.useTheme(am4themes_kelly);
         am4core.useTheme(am4themes_animated);
         // Themes end
 
         // Create chart instance
-        var chart = am4core.create("chartdiv", am4charts.XYChart);
-
-        // Add data
-        if (this.weekData) {
-          console.log('this.weekData contains: '+weekData);
-        }
-
-        if (weekData)
-        {
-          // console.log('weekData client side: ' + weekData);
-          chart.data = weekData;
-        }
-        // else
-        // {
-        //   console.log('No weekData found on client side: ');
-        //   chart.data = weekData;
-        // }
+        var chart = this.chart = am4core.create(this.$refs.chartdiv, am4charts.XYChart);
+        chart.data = weekData;
 
         chart.legend = new am4charts.Legend();
         chart.legend.position = "right";
@@ -143,7 +122,6 @@ parasails.registerComponent('weekly-statistics', {
         valueAxis.renderer.minGridDistance = 40;
 
         function createSeries(field, name) {
-
           var series = chart.series.push(new am4charts.ColumnSeries());
           series.dataFields.valueX = field;
           series.dataFields.categoryY = "fruit";
