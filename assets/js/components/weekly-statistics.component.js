@@ -68,7 +68,9 @@ parasails.registerComponent('weekly-statistics', {
   },
   beforeDestroy: function() {
     //…
-    this.chart.dispose();
+    if (this.chart) {
+      this.chart.dispose();
+    }
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
