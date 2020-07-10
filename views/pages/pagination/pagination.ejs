@@ -1,0 +1,55 @@
+<div class="container" id="pagination">
+    <br/>
+    <h3>Development of Pagnation in progress</h3>
+    <br/>
+    <div>
+        <h5>Status</h5>
+        <div>
+            <span class="alert-primary">Implementation started.</span><br/><br/>
+        </div>
+    </div>
+
+    <!-- How do we include/import/require bootstrap-vue...? -->
+    <!-- < % require('bootstrap-vue') % > -->
+
+    <b-table responsive outlined small striped hover :items="todos" :fields="['title', 'description', 'edit', 'delete']">
+        <template slot="edit" slot-scope="row">
+            <b-button size="sm" @click.stop="$router.push({ name: 'EditTodo', params: { id: row.item.id } })" class="mr-1">
+                Edit
+            </b-button>
+        </template>
+        <template slot="delete" slot-scope="row">
+            <b-button size="sm" @click.stop="deleteTodo(row.item.id)" class="mr-1">
+                Delete
+            </b-button>
+        </template>
+    </b-table>
+
+    <b-pagination size="sm" :total-rows="rows" v-model="page" :per-page="perpage">
+    </b-pagination>
+
+
+
+    <br/><br/><br/><br/>
+
+    <hr/>
+    <div>
+        <h5>Colors</h5>
+        <div>
+            <span class="alert-primary"><i>alert-primary</i></span><br/>
+            <span class="alert-secondary"><i>alert-secondary</i></span><br/>
+            <span class="alert-success"><i>alert-success</i></span><br/>
+            <span class="alert-warning"><i>alert-warning</i></span><br/>
+            <span class="alert-danger"><i>alert-danger</i></span><br/>
+            <span class="alert-light"><i>alert-light</i></span><br/>
+            <span class="alert-dark"><i>alert-dark</i></span><br/>
+
+        </div>
+    </div>
+
+    <br/><br/>
+
+    <hr/>
+</div>
+
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

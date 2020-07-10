@@ -1,0 +1,22 @@
+<div class="container" id="view-statistics">
+    <br/>
+    <h3 class="text-left">Weekly overview</h3>
+    <br/>
+
+    <div class="row align-items-center">
+        <div class="col-3">Select the week</div>
+        <dropdown-select label="Select the week" v-model="week" :options="availableWeeks"> </dropdown-select>
+        <input name="week" type="hidden" v-model="week">
+    </div>
+
+    <br/>
+    <% console.log("weekData server side: "+ weekData) %>
+    <% console.log("week: "+ week.constructor.name) %>
+    <% console.log("year: "+ year.constructor.name) %>
+
+    <weekly-statistics v-model="weekData" :value="weekData" :weekData="weekData" :week="week" :year="year"/>
+
+    <br/><br/>
+
+</div>
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

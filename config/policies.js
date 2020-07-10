@@ -32,6 +32,11 @@ module.exports.policies = {
   'example/view-dropdown-as-select': true,
   // 'example-dropdown': true,
 
+  'pagination/view-pagination': true,
+
+  // weekly statistics
+  'statistics/view-statistics': true,
+
   // 'example/dropdown_as_select': true,
 
 };

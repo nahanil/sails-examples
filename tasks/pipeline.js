@@ -34,9 +34,11 @@
 var cssFilesToInject = [
 
   // Bring in `.css` files for themes and style guides (e.g. Bootstrap, Foundation)
-  'dependencies/**/*.css',
+  'dependencies/**/*.css', // contains bootstrap
 
-  // All of the rest of your custom `.css` files will be injected here,
+  // READ HERE: https://bootstrap-vue.org/docs
+
+// All of the rest of your custom `.css` files will be injected here,
   // in no particular order.  To customize the ordering, add additional
   // items here, _above_ this one.
   'styles/**/*.css'

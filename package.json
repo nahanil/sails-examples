@@ -34,7 +34,7 @@
     "type": "git",
     "url": "git://github.com/mark/sails-examples.git"
   },
-  "author": "mark",
+  "author": "",
   "license": "",
   "engines": {
     "node": "^14.3"

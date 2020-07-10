@@ -22,6 +22,10 @@ module.exports.routes = {
 
   'POST /api/v1/quill/update': { action: 'example/update-content' },
 
+  'GET /pagination':         { action: 'pagination/view-pagination'},
+
+  'GET /statistics':         { action: 'statistics/view-statistics' },
+
   'GET /ajax':               { view: 'pages/ajax-form-example' },
 
   'GET /example-dropdown':   { action: 'example/view-dropdown-as-select' },

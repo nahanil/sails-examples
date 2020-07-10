@@ -68,6 +68,33 @@ module.exports.bootstrap = async function() {
     {pageId: '2', content: JSON.stringify({ops:[{"insert":"This is nice"}]})},
     ]);
 
+  var result_apple_24 = { 'fruit': 'Apple', 'juiciness': 1, 'color': 5, 'taste': 29, 'texture': 2};
+  var result_apple_23 = { 'fruit': 'Apple', 'juiciness': 3, 'color': 7, 'taste': 59, 'texture': 10};
+  var result_apple_22 = { 'fruit': 'Apple', 'juiciness': 5, 'color': 9, 'taste': 88, 'texture': 18};
+
+  var result_pear = { 'fruit': 'Pear', 'juiciness': 2, 'color': 4, 'taste': 35, 'texture': 4};
+  var result_pineapple = { 'fruit': 'Pineapple', 'juiciness': 1, 'color': 4, 'taste': 16, 'texture': 5};
+  var result_banana = { 'fruit': 'Banana', 'juiciness': 1, 'color': 1, 'taste': 1, 'texture': 1};
+
+  await WeekStatistic.createEach([
+    { week: 24, year: 2020, results: [result_apple_24, result_pear, result_pineapple, result_banana]},
+    { week: 23, year: 2020, results: [result_apple_23, result_pear, result_pineapple, result_banana]},
+    { week: 22, year: 2020, results: [result_apple_22, result_pear, result_pineapple, result_banana]},
+  ]);
+
+  await Todo.createEach([
+    {title: 'title 1', description: 'description 1'},
+    {title: 'title 2', description: 'description 2'},
+    {title: 'title 3', description: 'description 3'},
+    {title: 'title 4', description: 'description 4'},
+    {title: 'title 5', description: 'description 5'},
+    {title: 'title 6', description: 'description 6'},
+    {title: 'title 7', description: 'description 7'},
+    {title: 'title 8', description: 'description 8'},
+    {title: 'title 9', description: 'description 9'},
+    {title: 'title 10', description: 'description 10'},
+    {title: 'title 11', description: 'description 11'},
+  ])
   // Save new bootstrap version
   await sails.helpers.fs.writeJson.with({
     destination: bootstrapLastRunInfoPath,
