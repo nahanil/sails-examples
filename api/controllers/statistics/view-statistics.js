@@ -37,30 +37,3 @@ module.exports = {
     };
   }
 };
-
-//
-// var weekData = [ {
-//   'medium': 'NOS',
-//   'feitelijk_onjuist': 3,
-//   'informatie_incompleet': 7,
-//   'vooringenomen': 29,
-//   'censuur': 2,
-// }, {
-//   'medium': 'NRC',
-//   'feitelijk_onjuist': 2,
-//   'informatie_incompleet': 4,
-//   'vooringenomen': 35,
-//   'censuur': 4,
-// }, {
-//   'medium': 'Volkskrant',
-//   'feitelijk_onjuist': 1,
-//   'informatie_incompleet': 4,
-//   'vooringenomen': 16,
-//   'censuur': 5,
-// }, {
-//   'medium': 'Telegraaf',
-//   'feitelijk_onjuist': 1,
-//   'informatie_incompleet': 1,
-//   'vooringenomen': 1,
-//   'censuur': 1 }
-// ];
